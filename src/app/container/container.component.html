@@ -1,0 +1,27 @@
+<div
+      cdkDropList
+      #list
+      [cdkDropListConnectedTo]="['list-s', 'list-t']"
+      class="example-list"
+      [attr.id]="containerId"
+      [cdkDropListData]="data.items"
+      (cdkDragStarted)="startDrag()"
+      (mouseover)="onMouseOver()"
+      (mouseleave)="onMouseLeave()"
+      (cdkDropListDropped)="drop($event)">
+      <h2>{{data.title}}</h2>
+      <div class="example-box">
+          <div *ngFor="let item of data.items; let i = index"
+          cdkDropList cdkDrag
+          [cdkDropListConnectedTo]="['list-s', 'list-t']"
+          [cdkDropListData]="item.items"
+          (cdkDragStarted)="startDragChild()"
+          class="example-list"
+          [attr.id]="childId"
+          (mouseover)="onMouseOverChild()"
+          (mouseleave)="onMouseLeaveChild()"
+          (cdkDropListDropped)="drop($event)">
+          <app-container [data]="item"></app-container>
+        </div>
+      </div>
+    </div>
