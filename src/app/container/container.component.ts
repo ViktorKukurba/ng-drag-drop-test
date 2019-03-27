@@ -13,48 +13,25 @@ export class ContainerComponent implements OnInit {
   @Input()
   data: any;
 
-  @ViewChild('list')
-  list: CdkDropList;
-
-  containerId;
-  childId;
+  @Input()
+  ids: any[];
 
   ngOnInit() {
-  }
-
-  onMouseOver() {
-    if (this.containerId !== 'list-s') {
-      this.containerId = 'list-t';
+    if (!this.ids) {
+      this.sendIds = this.getIds(this.data) as Array<any>;
+      this.sendIds.shift();
+      console.log('this.sendIds', this.sendIds);
+    } else {
+      this.sendIds = this.ids;
     }
   }
 
-  onMouseLeave() {
-    if (this.containerId !== 'list-s') {
-      this.containerId = 'list-' + Math.random();
-    }
+  getIds(data) {
+    const arrStr = data.items.map((item) => this.getIds(item)).join(',');
+    return [data._id, ...arrStr.split(',').filter(i => i)];
   }
 
-  onMouseOverChild() {
-    if (this.childId !== 'list-s') {
-      this.childId = 'list-t';
-    }
-  }
-
-  onMouseLeaveChild() {
-    if (this.childId !== 'list-s') {
-      this.childId = 'list-' + Math.random();
-    }
-  }
-
-  startDrag() {
-    this.containerId = 'list-s';
-    console.log('startDrag', this.list);
-  }
-
-  startDragChild() {
-    this.childId = 'list-s';
-    console.log('startDrag', this.list);
-  }
+  sendIds: any[];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {

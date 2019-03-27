@@ -30,4 +30,12 @@ export class AppComponent {
         }
       ]}]
   };
+
+  dataIds = this.dataWithIds(this.data);
+
+  dataWithIds(data) {
+    data._id = `id-${Math.random()}`;
+    data.items.forEach((item) => this.dataWithIds(item));
+    return data;
+  }
 }
