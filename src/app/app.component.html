@@ -1,1 +1,10 @@
-<app-container [data]=dataIds></app-container>
+<ul>
+  <li><button (click)="implementation = 'recursive'">Recursive container (Service)</button></li>
+  <li><button (click)="implementation = 'simple-service'">Simple Todo (Service)</button></li>
+  <li><button (click)="implementation = 'directive'">Simple (Directive)</button></li>
+  <li><button (click)="implementation = 'recursive-directive'">Recursive container v2 (Directive)</button></li>
+</ul>
+<app-container-v2 *ngIf="implementation === 'recursive-directive'" [data]="data"></app-container-v2>
+<app-container *ngIf="implementation === 'recursive'" [data]="data"></app-container>
+<app-todo *ngIf="implementation === 'simple-service'"></app-todo>
+<app-todo-directive *ngIf="implementation === 'directive'"></app-todo-directive>

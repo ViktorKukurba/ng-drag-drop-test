@@ -6,13 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  implementation = 'recursive-directive';
   data = {
     title: 'Root container',
     items: [{
       title: 'Second layer container - 1',
       items: [{
         title: 'Third layer - 1.1',
-        items: []
+        items: [{
+          title: 'Forth layer - 1.1.1',
+          items: []
+        },{
+          title: 'Forth layer - 1.1.2',
+          items: []
+        }]
       }, {
         title: 'Third layer - 1.2',
         items: []
@@ -30,12 +37,4 @@ export class AppComponent {
         }
       ]}]
   };
-
-  dataIds = this.dataWithIds(this.data);
-
-  dataWithIds(data) {
-    data._id = `id-${Math.random()}`;
-    data.items.forEach((item) => this.dataWithIds(item));
-    return data;
-  }
 }
